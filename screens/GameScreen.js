@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Alert, Button, ScrollView, StyleSheet, Text, View } from "react-native"
+import {
+  Alert,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native"
 import { Ionicons } from "@expo/vector-icons"
+import * as ScreenOrientation from "expo-screen-orientation"
 import Card from "../components/Card"
 import MainButton from "../components/MainButton"
 import NumberContainer from "../components/NumberContainer"
@@ -19,6 +27,7 @@ const generateRandomBetween = (min, max, exclude) => {
 }
 
 const GameScreen = props => {
+  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
   const { userChoice, onGameOver } = props
 
   const intialGuess = generateRandomBetween(1, 100, userChoice)
@@ -97,13 +106,14 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
+    // marginTop: 20,
+    marginTop: Dimensions.get("window").height > 600 ? 20 : 5,
     width: 400,
     maxWidth: "90%"
   },
   listContainer: {
     flex: 1,
-    width: "60%"
+    width: Dimensions.get("window").width > 350 ? "60%" : "80%"
   },
   list: {
     flexGrow: 1,
